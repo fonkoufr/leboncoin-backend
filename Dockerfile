@@ -1,15 +1,14 @@
-# Image stable et certifiée pour Docker
-FROM openjdk:17-jdk-slim
+# On utilise Amazon Corretto, une version très stable de Java 17
+FROM amazoncorretto:17-alpine
 
 WORKDIR /app
 
-# Copie du JAR (Assure-toi que le fichier est bien présent dans /target)
+# On copie le JAR (vérifie bien le nom dans ton dossier target)
 COPY target/leboncoin-api-0.0.1-SNAPSHOT.jar app.jar
 
-# Copie du dossier wallet (Vérifie qu'il est bien à la racine de ton projet)
+# On copie le wallet
 COPY wallet /app/wallet
 
 EXPOSE 8080
 
-# Lancement de l'application
 ENTRYPOINT ["java", "-jar", "app.jar"]
