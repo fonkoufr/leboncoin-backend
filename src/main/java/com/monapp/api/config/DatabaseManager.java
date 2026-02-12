@@ -5,19 +5,21 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseManager {
-    // METS TON CHEMIN WALLET ICI (Avec des / pas des \)
-    private static final String CHEMIN_WALLET = "C:/Projets/Wallet_Leboncoin/Wallet_OK9S903RHPADR9PI"; 
-    private static final String PASSWORD = "Djoussi2017@"; 
-    private static final String DB_ALIAS = "ok9s903rhpadr9pi_high"; 
-
-    private static final String DB_URL = "jdbc:oracle:thin:@" + DB_ALIAS + "?TNS_ADMIN=" + CHEMIN_WALLET;
+    // ✅ On utilise System.getenv pour lire les variables configurées sur Render
+    private static final String DB_URL = System.getenv("SPRING_DATASOURCE_URL");
+    private static final String USER = System.getenv("SPRING_DATASOURCE_USERNAME");
+    private static final String PASSWORD = System.getenv("SPRING_DATASOURCE_PASSWORD");
 
     public static Connection getConnection() throws SQLException {
         try {
             Class.forName("oracle.jdbc.OracleDriver");
-            return DriverManager.getConnection(DB_URL, "ADMIN", PASSWORD);
+            // ✅ On vérifie que les variables ne sont pas nulles avant de se connecter
+            if (DB_URL == null || USER == null || PASSWORD == null) {
+                throw new SQLException("Erreur : Variables d'environnement manquantes sur le serveur !");
+            }
+            return DriverManager.getConnection(DB_URL, USER, PASSWORD);
         } catch (ClassNotFoundException e) {
-            throw new SQLException("Driver manquant", e);
+            throw new SQLException("Driver Oracle manquant dans le projet", e);
         }
     }
 }
