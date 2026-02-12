@@ -1,0 +1,13 @@
+com\monapp\api\RestApplication.class
+com\monapp\api\model\Utilisateur.class
+com\monapp\api\config\TestConnexion.class
+com\monapp\api\config\CheckTable.class
+com\monapp\api\config\SetupTable.class
+com\monapp\api\repository\AnnonceRepository.class
+com\monapp\api\repository\UtilisateurRepository.class
+com\monapp\api\controller\AnnonceController.class
+com\monapp\api\config\DatabaseManager.class
+com\monapp\api\controller\UtilisateurController.class
+com\monapp\api\SecurityConfig.class
+com\monapp\api\service\UtilisateurService.class
+com\monapp\api\model\Annonce.class
