@@ -12,7 +12,8 @@ import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/annonces")
-@CrossOrigin(origins = "http://localhost:5173")
+// ✅ On autorise toutes les origines pour que ton localhost et ton futur site Vercel fonctionnent
+@CrossOrigin(origins = "*", allowedHeaders = "*") 
 public class AnnonceController {
 
     @Autowired 
