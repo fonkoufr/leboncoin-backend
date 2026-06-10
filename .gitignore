@@ -1,0 +1,25 @@
+# Maven build output
+target/
+*.class
+
+# IntelliJ IDEA / VS Code
+.idea/
+*.iml
+.vscode/
+
+# Fichiers de configuration sensibles (ne jamais commiter)
+src/main/resources/application.properties
+src/main/resources/application-*.properties
+!src/main/resources/application-example.properties
+
+# Wallet Oracle Cloud (contient des certificats)
+wallet/
+Wallet_*/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db

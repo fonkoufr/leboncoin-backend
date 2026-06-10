@@ -1,6 +1,7 @@
 package com.monapp.api.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "UTILISATEURS")
@@ -10,11 +11,17 @@ public class Utilisateur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Le nom ne peut pas être vide")
+    @Size(min = 2, max = 100, message = "Le nom doit avoir entre 2 et 100 caractères")
     private String nom;
     
+    @NotBlank(message = "L'email ne peut pas être vide")
+    @Email(message = "L'email doit être valide")
     @Column(unique = true)
     private String email;
     
+    @NotBlank(message = "Le mot de passe ne peut pas être vide")
+    @Size(min = 8, message = "Le mot de passe doit avoir au moins 8 caractères")
     private String motDePasse;
 
     // Constructeurs

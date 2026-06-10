@@ -1,10 +1,16 @@
 package com.monapp.api.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 
 public class CheckTable {
+
+    private static final Logger log = LoggerFactory.getLogger(CheckTable.class);
+
     public static void main(String[] args) {
-        System.out.println("🔍 Vérification de la table...");
+        log.info("Vérification de la table...");
 
         String sql = "SELECT TABLE_NAME FROM USER_TABLES WHERE TABLE_NAME = 'ANNONCES'";
 
@@ -13,16 +19,14 @@ public class CheckTable {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             if (rs.next()) {
-                System.out.println("✅ TROUVÉ ! La table " + rs.getString("TABLE_NAME") + " existe bien.");
-                
-                // Bonus : Afficher les colonnes
+                log.info("TROUVÉ ! La table {} existe bien.", rs.getString("TABLE_NAME"));
                 afficherColonnes(conn);
             } else {
-                System.out.println("❌ La table ANNONCES n'existe pas.");
+                log.warn("La table ANNONCES n'existe pas.");
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Erreur lors de la vérification de la table", e);
         }
     }
 
@@ -30,9 +34,9 @@ public class CheckTable {
         String sql = "SELECT COLUMN_NAME, DATA_TYPE FROM USER_TAB_COLUMNS WHERE TABLE_NAME = 'ANNONCES'";
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
-            System.out.println("\n📋 Colonnes de la table :");
-            while(rs.next()) {
-                System.out.println("   - " + rs.getString("COLUMN_NAME") + " (" + rs.getString("DATA_TYPE") + ")");
+            log.info("Colonnes de la table :");
+            while (rs.next()) {
+                log.info("  - {} ({})", rs.getString("COLUMN_NAME"), rs.getString("DATA_TYPE"));
             }
         }
     }
