@@ -31,8 +31,7 @@ public class Annonce {
     @Size(min = 2, max = 100, message = "La catégorie doit avoir entre 2 et 100 caractères")
     private String categorie;
     
-    @Lob
-    @Column(name = "image_url")
+    @Column(name = "image_url", length = 2000)
     private String imageUrl;
     
     @Pattern(regexp = "^[0-9+\\-. ()]{10,}$", message = "Le téléphone doit avoir un format valide")
